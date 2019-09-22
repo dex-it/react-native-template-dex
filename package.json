@@ -6,6 +6,10 @@
     "template",
     "template.config.js"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+http://git.dextechnology.com/rn-components/react-native-template-dex.git"
+  },
   "keywords": [
     "react-native",
     "typescript",
