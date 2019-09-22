@@ -1,0 +1,16 @@
+{
+  "name": "react-native-template-dex",
+  "version": "0.0.1",
+  "description": "Dex React Native template",
+  "files": [
+    "template",
+    "template.config.js"
+  ],
+  "keywords": [
+    "react-native",
+    "typescript",
+    "dex",
+    "template",
+    "boilerplate"
+  ]
+}
