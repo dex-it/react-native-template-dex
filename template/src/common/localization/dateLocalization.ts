@@ -6,5 +6,5 @@ export const dateLocalization = {
         "dayAfterTomorrow": "day after tomorrow",
         "from": "from",
         "to": "to",
-    }
+    },
 };

@@ -14,5 +14,5 @@ export const errorsLocalization = {
 
         "failedToConnect": "Failed to connect to the server.",
         "checkConnection": "Check your Internet connection and try again later.",
-    }
+    },
 };

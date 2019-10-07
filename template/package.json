@@ -24,7 +24,6 @@
   "dependencies": {
     "@react-native-community/async-storage": "1.6.1",
     "bugsnag-react-native": "2.23.1",
-    "dex-logger": "git+http://git.dextechnology.com/rn-components/js-dex-logger.git#master",
     "intl": "1.2.5",
     "jwt-decode": "2.2.0",
     "lodash": "4.17.15",

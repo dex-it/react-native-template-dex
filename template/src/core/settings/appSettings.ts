@@ -5,13 +5,10 @@ export interface IAppSettings {
     environment: "Development" | "Test" | "Staging" | "Production";
     serverUrl: string;
     identityUrl: string;
-    loggerUrl: string;
     bugReportApiKey: string;
     useBugReporter: boolean;
     version: string;
     build: number;
-    fetchTimeout: number;
-    uploadTimeout: number;
     showVersion: boolean;
     supportUrl: string;
     termServer: string;

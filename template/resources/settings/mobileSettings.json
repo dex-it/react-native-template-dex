@@ -5,11 +5,8 @@
   "identityUrl": "insert some here",
   "bugReportApiKey": "apikey",
   "useBugReporter": false,
-  "loggerUrl": "",
   "version": "1.0",
   "build": 1,
-  "fetchTimeout": 10000,
-  "uploadTimeout": 60000,
   "showVersion": false,
   "supportUrl": "support@someaddress.com",
   "devOptions": {

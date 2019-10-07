@@ -1,6 +1,5 @@
 import {assertNotNull} from "../../common/assertNotNull";
 import {UrlHelper} from "../../common/helpers";
-import {dexLogger} from "../dexLogger";
 import {ExceptionType, NoAuthError} from "../exceptionTypes";
 import {appSettingsProvider} from "../settings";
 import {TokenResponse} from "./generated/dto/TokenResponse.g";
@@ -25,7 +24,7 @@ export class BaseRequest {
     protected get options(): IRequestOptions {
         return BaseRequest.globalOptions || {
             getToken: (): string | null => null,
-            onAuthError: (): void => dexLogger.warning("onAuthError is not set"),
+            onAuthError: (): void => console.warn("onAuthError is not set"),
         };
     }
 
@@ -68,10 +67,10 @@ export class BaseRequest {
         } catch (error) {
             if (isRequestError) {
                 error.isServerError = true;
-                dexLogger.exception(error, "Request error", {url, status});
+                console.warn(error, "Request error", {url, status});
                 throw error;
             } else {
-                dexLogger.log("Connection error", error);
+                console.log("Connection error", error);
                 const connectionError: any = new Error(error.message);
                 connectionError.name = ExceptionType.Connection;
                 connectionError.innerError = error;
