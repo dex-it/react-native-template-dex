@@ -1,0 +1,20 @@
+{
+  "name": "react-native-template-dex",
+  "version": "1.0.0",
+  "description": "Dex React Native template",
+  "files": [
+    "template",
+    "template.config.js"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+http://git.dextechnology.com/rn-components/react-native-template-dex.git"
+  },
+  "keywords": [
+    "react-native",
+    "typescript",
+    "dex",
+    "template",
+    "boilerplate"
+  ]
+}
