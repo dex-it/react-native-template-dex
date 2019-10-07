@@ -8,7 +8,7 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+http://git.dextechnology.com/rn-components/react-native-template-dex.git"
+    "url": "git+https://github.com/dex-it/react-native-template-dex.git"
   },
   "keywords": [
     "react-native",
