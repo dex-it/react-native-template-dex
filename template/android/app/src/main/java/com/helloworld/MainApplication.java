@@ -1,4 +1,4 @@
-package com.dexapp;
+package com.helloworld;
 
 import android.app.Application;
 import android.util.Log;

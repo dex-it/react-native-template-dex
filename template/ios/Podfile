@@ -1,8 +1,8 @@
 platform :ios, '9.0'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
 
-target 'dexapp' do
-  # Pods for dexapp
+target 'HelloWorld' do
+  # Pods for HelloWorld
   pod 'React', :path => '../node_modules/react-native/'
   pod 'React-Core', :path => '../node_modules/react-native/React'
   pod 'React-DevSupport', :path => '../node_modules/react-native/React'
@@ -27,7 +27,7 @@ target 'dexapp' do
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
 
-  target 'dexappTests' do
+  target 'HelloWorldTests' do
     inherit! :search_paths
     # Pods for testing
   end
@@ -35,10 +35,10 @@ target 'dexapp' do
   use_native_modules!
 end
 
-target 'dexapp-tvOS' do
-  # Pods for dexapp-tvOS
+target 'HelloWorld-tvOS' do
+  # Pods for HelloWorld-tvOS
 
-  target 'dexapp-tvOSTests' do
+  target 'HelloWorld-tvOSTests' do
     inherit! :search_paths
     # Pods for testing
   end

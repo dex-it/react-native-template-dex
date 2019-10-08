@@ -1,4 +1,4 @@
 module.exports = {
-    placeholderName: "dexapp",
+    placeholderName: "HelloWorld",
     templateDir: "./template",
 };

@@ -1,5 +1,5 @@
 {
-  "appName": "dexapp",
+  "appName": "HelloWorld",
   "environment": "Development",
   "serverUrl": "http://someserver.com",
   "identityUrl": "insert some here",

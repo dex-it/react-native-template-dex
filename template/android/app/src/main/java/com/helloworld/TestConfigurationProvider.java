@@ -1,4 +1,4 @@
-package com.dexapp;
+package com.helloworld;
 
 import android.content.Context;
 import android.content.SharedPreferences;
