@@ -98,10 +98,5 @@
       "js"
     ],
     "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$"
-  },
-  "rnpm": {
-    "assets": [
-      "./resources/fonts"
-    ]
   }
 }
