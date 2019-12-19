@@ -4,12 +4,10 @@ const replaceInFile = require("./replaceInFile");
 
 replaceMetroBlackListForNode();
 preventBundleInDebugForIOS();
-preventRunReactPackagerIOS();
 
 function replaceMetroBlackListForNode() {
-    console.log("Replace metro blacklist for node >= 12.11.x");
-
     if (process.version.startsWith("v12.1")) {
+        console.log("Replace metro blacklist for node >= 12.11.x");
         const file = path.join(dir, "..", "node_modules", "metro-config", "src", "defaults", "blacklist.js");
 
         replaceInFile(file,
@@ -28,16 +26,6 @@ function replaceMetroBlackListForNode() {
         );
     }
     console.log("Process version: ", process.version);
-}
-
-function preventRunReactPackagerIOS() {
-    console.log("Prevent react packager from running on iOS");
-    const file = path.join(dir, "..", "node_modules", "react-native", "React", "React.xcodeproj", "project.pbxproj");
-
-    replaceInFile(file, [
-        ["if [ -z \\\"${RCT_NO_LAUNCH_PACKAGER+xxx}\\\" ] ;", "if [ -z \\\"${RCT_NO_LAUNCH_PACKAGER+xxx}\\\" AND 0] ;"],
-        ["if [ -z \\\"${RCT_NO_LAUNCH_PACKAGER+xxx}\\\" ] ;", "if [ -z \\\"${RCT_NO_LAUNCH_PACKAGER+xxx}\\\" AND 0] ;"]
-    ]);
 }
 
 function preventBundleInDebugForIOS() {
