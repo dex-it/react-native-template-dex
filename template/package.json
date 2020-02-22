@@ -31,6 +31,7 @@
     "moment": "2.24.0",
     "react": "16.12.0",
     "react-native": "0.61.5",
+    "react-native-appearance": "0.3.2",
     "react-native-gesture-handler": "1.6.0",
     "react-native-localization": "2.1.6",
     "react-native-modal": "11.5.4",

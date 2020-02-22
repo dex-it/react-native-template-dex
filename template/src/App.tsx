@@ -1,6 +1,6 @@
 import React, {ErrorInfo, PureComponent} from "react";
 import {Store} from "redux";
-import {AppStateStatus, UIManager, View} from "react-native";
+import {AppStateStatus, EventSubscription, UIManager, View} from "react-native";
 import {Provider} from "react-redux";
 import {PersistGate} from "redux-persist/integration/react";
 import {appSettingsProvider} from "./core/settings";
@@ -22,6 +22,9 @@ import {localization} from "./common/localization/localization";
 import {BackButtonHandler} from "./navigation/components";
 import {initNavigationConfig} from "./navigation/config/initNavigationConfig";
 import {NavigationConfig} from "./navigation/config";
+import {Appearance, AppearanceProvider} from "react-native-appearance";
+import {AppearancePreferences, ColorSchemeName} from "react-native-appearance/src/Appearance.types";
+import {NavigationAction} from "react-navigation";
 
 UIManager.setLayoutAnimationEnabledExperimental && UIManager.setLayoutAnimationEnabledExperimental(true);
 initNavigationConfig();
@@ -29,6 +32,7 @@ initNavigationConfig();
 interface IState {
   isError: boolean;
   appState: AppStateStatus;
+  theme: ColorSchemeName;
 }
 
 export class App extends PureComponent<IEmpty, IState> {
@@ -37,6 +41,7 @@ export class App extends PureComponent<IEmpty, IState> {
   private logoutListenerId: string;
   private forceResetListenerId: string;
   private changeLanguageListenerId: string;
+  private changeThemeListenerId: EventSubscription;
 
   constructor(props: IEmpty) {
     super(props);
@@ -45,22 +50,27 @@ export class App extends PureComponent<IEmpty, IState> {
     this.forceResetApp = this.forceResetApp.bind(this);
     this.logout = this.logout.bind(this);
     this.forceChangeLanguage = this.forceChangeLanguage.bind(this);
+    this.onThemeChanged = this.onThemeChanged.bind(this);
+
     this.createStore(appSettingsProvider.settings.devOptions.purgeStateOnStart
         ? MigrateStoreMode.purge
         : MigrateStoreMode.none,
     );
-    this.state = {isError: false, appState: "active"};
+
+    this.state = {isError: false, appState: "active", theme: Appearance.getColorScheme()};
   }
 
   componentDidMount(): void {
     this.logoutListenerId = eventRegister.addEventListener(EventNames.logout, this.logout);
     this.forceResetListenerId = eventRegister.addEventListener(EventNames.reset, this.forceResetApp);
     this.changeLanguageListenerId = eventRegister.addEventListener(EventNames.changeLanguage, this.forceChangeLanguage);
+    this.changeThemeListenerId = Appearance.addChangeListener(this.onThemeChanged);
   }
   componentWillUnmount(): void {
     eventRegister.removeEventListener(this.logoutListenerId);
     eventRegister.removeEventListener(this.changeLanguageListenerId);
     eventRegister.removeEventListener(this.forceResetListenerId);
+    this.changeThemeListenerId.remove();
   }
 
   componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
@@ -76,15 +86,17 @@ export class App extends PureComponent<IEmpty, IState> {
       const RootNavigation = NavigationConfig.instance.getNavigationComponent("root");
 
       return (
-          <Provider store={this.store}>
-            <PersistGate loading={<Splash/>} persistor={this.persistor}>
-              <View style={CommonStyles.flex1}>
-                <BackButtonHandler/>
-                <RootNavigation/>
-                <LoadingModal/>
-              </View>
-            </PersistGate>
-          </Provider>
+          <AppearanceProvider>
+            <Provider store={this.store}>
+              <PersistGate loading={<Splash/>} persistor={this.persistor}>
+                <View style={CommonStyles.flex1}>
+                  <BackButtonHandler/>
+                  <RootNavigation theme={this.state.theme}/>
+                  <LoadingModal/>
+                </View>
+              </PersistGate>
+            </Provider>
+          </AppearanceProvider>
       );
     }
   }
@@ -99,7 +111,7 @@ export class App extends PureComponent<IEmpty, IState> {
     if (__DEV__) {
       DevMenu.addItem(
           "Navigate to Playground",
-          () => this.store.dispatch(NavigationActions.navigateToPlayground()),
+          (): NavigationAction => this.store.dispatch(NavigationActions.navigateToPlayground()),
       );
     }
 
@@ -113,7 +125,7 @@ export class App extends PureComponent<IEmpty, IState> {
     BaseRequest.globalOptions = {
       setToken: (t: TokenResponse): any => this.store.dispatch(SystemActions.setToken(t)),
       getToken: (): string | null => this.store.getState().system.authToken,
-      onAuthError: _.debounce(() => {
+      onAuthError: _.debounce((): void => {
         this.logout();
       }, 600),
     };
@@ -124,8 +136,8 @@ export class App extends PureComponent<IEmpty, IState> {
   }
 
   private logout(): void {
-    this.setState({isError: true}, () => {
-      setTimeout(() => this.resetState(MigrateStoreMode.resetStateWithToken), 100);
+    this.setState({isError: true}, (): void => {
+      setTimeout((): void => this.resetState(MigrateStoreMode.resetStateWithToken), 100);
     });
   }
 
@@ -135,7 +147,7 @@ export class App extends PureComponent<IEmpty, IState> {
   }
 
   private forceResetApp(): void {
-    this.setState({isError: true}, () => {
+    this.setState({isError: true}, (): void => {
       this.resetState(MigrateStoreMode.resetStatePreserveToken);
     });
   }
@@ -143,8 +155,12 @@ export class App extends PureComponent<IEmpty, IState> {
   private forceChangeLanguage(): void {
     const language = this.store.getState().entities.language;
     localization.setLanguage(language);
-    this.setState({isError: true}, () => {
+    this.setState({isError: true}, (): void => {
       this.setState({isError: false});
     });
+  }
+
+  private onThemeChanged(preferences: AppearancePreferences): void {
+    this.setState({theme: preferences.colorScheme});
   }
 }
