@@ -9,7 +9,7 @@ import {NavigationStackOptions} from "react-navigation-stack";
 
 export function NoHeader(): NavigationStackOptions {
     return ({
-        header: null,
+        header: undefined,
     });
 }
 
@@ -34,8 +34,8 @@ export function PlainHeader(params: {
                 />
             )
             : isIos ? <View/> : null,
-        headerRight: null,
-        headerBackTitle: null,
+        headerRight: undefined,
+        headerBackTitle: undefined,
         headerStyle: headerStyle != null ? headerStyle : CommonHeaderStyles.headerStyle,
         headerTitleAllowFontScaling: false,
     });

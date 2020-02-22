@@ -2,7 +2,7 @@ import {NavigationRouter, NavigationState} from "react-navigation";
 import {AnyAction} from "redux";
 import {CoreActions} from "../core/store";
 
-export function extendWithDontPushTwoPageInStack(router: NavigationRouter<NavigationState, AnyAction>): void {
+export function extendWithDontPushTwoPageInStack(router: NavigationRouter<NavigationState>): void {
     const defaultGetStateForAction = router.getStateForAction;
 
     router.getStateForAction = (action: AnyAction, lastState: NavigationState): NavigationState | null => {

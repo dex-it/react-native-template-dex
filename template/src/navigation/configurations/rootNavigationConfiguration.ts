@@ -8,7 +8,7 @@ export const RootNavigator = createStackNavigator({
     [NavigationPages.playground]: {screen: Playground},
     [NavigationPages.inDevelopment]: {screen: InDeveloping},
 }, {
-    headerMode: "screen"
+    headerMode: "screen",
 });
 
 extendWithDontPushTwoPageInStack(RootNavigator.router);

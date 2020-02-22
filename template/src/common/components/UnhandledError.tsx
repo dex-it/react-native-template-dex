@@ -1,15 +1,15 @@
 import React, {Component} from "react";
 import {SafeAreaView, Text, TextStyle, TouchableOpacity, View, ViewStyle} from "react-native";
-import {styleSheetCreate} from "../utils";
+import {styleSheetCreate, styleSheetFlatten} from "../utils";
 import {Colors, CommonStyles, Fonts, minWindowDimension} from "../../core/theme";
-import { Header } from "react-navigation-stack";
+import {HeaderHeightContext} from "react-navigation-stack";
 
 export class UnhandledError extends Component<IProps> {
     render(): JSX.Element {
         const header = this.props.hideHeader ? null : (
-            <SafeAreaView style={styles.header}>
-                <View style={styles.header}/>
-            </SafeAreaView>
+            <HeaderHeightContext.Consumer>
+                {this.renderHeader}
+            </HeaderHeightContext.Consumer>
         );
 
         return (
@@ -26,6 +26,16 @@ export class UnhandledError extends Component<IProps> {
             </View>
         );
     }
+
+    private renderHeader = (headerHeight: number): JSX.Element => {
+        const headerStyle = styleSheetFlatten(styles.header, {height: headerHeight});
+
+        return (
+            <SafeAreaView style={headerStyle}>
+                <View style={headerStyle}/>
+            </SafeAreaView>
+        );
+    };
 }
 
 interface IProps {
@@ -55,7 +65,6 @@ const styles = styleSheetCreate({
         margin: 10,
     } as TextStyle,
     header: {
-        height: Header.HEIGHT,
         backgroundColor: Colors.black,
         width: minWindowDimension,
     } as ViewStyle,
