@@ -78,6 +78,7 @@ import com.android.build.OutputFile
 project.ext.react = [
     entryFile: "index.js",
     enableHermes: true,  // clean and rebuild if changing
+    hermesCommand: "../../node_modules/hermes-engine/%OS-BIN%/hermes",
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
@@ -185,7 +186,7 @@ dependencies {
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0-alpha02'
 
     if (enableHermes) {
-      def hermesPath = "../../node_modules/hermesvm/android/";
+      def hermesPath = "../../node_modules/hermes-engine/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")
       releaseImplementation files(hermesPath + "hermes-release.aar")
     } else {
