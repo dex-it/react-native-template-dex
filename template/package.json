@@ -27,7 +27,7 @@
     "bugsnag-react-native": "2.23.6",
     "intl": "1.2.5",
     "jwt-decode": "2.2.0",
-    "lodash": "4.17.15",
+    "lodash": "4.17.19",
     "moment": "2.24.0",
     "react": "16.13.1",
     "react-native": "0.62.1",
